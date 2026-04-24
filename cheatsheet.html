@@ -40,7 +40,7 @@
 
         <div class="cheat-block">
           <div class="cheat-block__title">Joint PMF (discrete)</div>
-          $$p(x,y)=P(X{=}x,Y{=}y)$$
+          $$p(x,y)=P(X=x,\,Y=y)$$
           Marginals: $p_X(x)=\sum_y p(x,y)$
         </div>
 
@@ -123,13 +123,13 @@
           <div class="cheat-block__title">Conditional PMF / PDF</div>
           $$p_{X|Y}(x|y)=\dfrac{p(x,y)}{p_Y(y)} \quad \text{(discrete)}$$
           $$f_{X|Y}(x|y)=\dfrac{f(x,y)}{f_Y(y)} \quad \text{(continuous)}$$
-          For fixed $y$: $\sum_x p_{X|Y}=1$ or $\int f_{X|Y}dx=1$.
+          For fixed $y$: $\sum_x p_{X\mid Y}=1$ or $\int f_{X\mid Y}\,dx=1$.
         </div>
 
         <div class="cheat-block">
           <div class="cheat-block__title">Conditional Expectation</div>
-          $$E[X|Y{=}y]=\sum_x x\,p_{X|Y}(x|y)$$
-          $$E[X|Y{=}y]=\int x\,f_{X|Y}(x|y)\,dx$$
+          $$E[X\mid Y=y]=\sum_x x\,p_{X\mid Y}(x\mid y)$$
+          $$E[X\mid Y=y]=\int x\,f_{X\mid Y}(x\mid y)\,dx$$
           $E[X|Y]$ is a <em>random variable</em> (function of $Y$).
         </div>
 
@@ -235,9 +235,45 @@
           <ul>
             <li>$\Gamma(n)=(n{-}1)!$ for positive integer $n$</li>
             <li>$\Gamma(1/2)=\sqrt{\pi}$, $\Gamma(x{+}1)=x\,\Gamma(x)$</li>
-            <li>Exp is memoryless: $P(X{>}s{+}t|X{>}s)=P(X{>}t)$</li>
+            <li>Exp is memoryless: $P(X{>}s{+}t\mid X{>}s)=P(X{>}t)$</li>
             <li>If $Z\sim N(0,1)$: $Z^2\sim\chi^2_1=\Gamma(1/2,1/2)$</li>
           </ul>
+        </div>
+
+        <h3 style="margin-top:6px;">Standard Normal $\Phi$</h3>
+        <div class="cheat-block">
+          <div class="cheat-block__title">Notation &amp; symmetry</div>
+          $Z\sim N(0,1)$: $\Phi(z)=P(Z\le z)=\int_{-\infty}^z\tfrac{1}{\sqrt{2\pi}}e^{-t^2/2}dt$
+          <br/><strong>Symmetry:</strong> $\Phi(-z)=1-\Phi(z)$
+          <br/>$P(a&lt;Z&lt;b)=\Phi(b)-\Phi(a)$
+          <br/>$P(\lvert Z\rvert&gt;z)=2(1-\Phi(z))$
+          <br/><strong>Standardize:</strong> if $X\sim N(\mu,\sigma^2)$, then $Z=\dfrac{X-\mu}{\sigma}\sim N(0,1)$
+        </div>
+        <div class="cheat-block">
+          <div class="cheat-block__title">Empirical rule (68–95–99.7)</div>
+          <table>
+            <thead><tr><th>$\pm k\sigma$</th><th>$P(\lvert X-\mu\rvert&lt;k\sigma)$</th></tr></thead>
+            <tbody>
+              <tr><td>$\pm 1\sigma$</td><td>$\approx 0.6827$</td></tr>
+              <tr><td>$\pm 2\sigma$</td><td>$\approx 0.9545$</td></tr>
+              <tr><td>$\pm 3\sigma$</td><td>$\approx 0.9973$</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="cheat-block">
+          <div class="cheat-block__title">Key $\Phi$ values</div>
+          <table>
+            <thead><tr><th>$z$</th><th>$\Phi(z)$</th><th>Use</th></tr></thead>
+            <tbody>
+              <tr><td>$1.00$</td><td>$0.8413$</td><td>$\pm1\sigma$ tail</td></tr>
+              <tr><td>$1.28$</td><td>$0.9000$</td><td>90th percentile</td></tr>
+              <tr><td>$1.645$</td><td>$0.9500$</td><td>95th percentile</td></tr>
+              <tr><td>$1.96$</td><td>$0.9750$</td><td>95% CI half</td></tr>
+              <tr><td>$2.00$</td><td>$0.9772$</td><td>$\pm2\sigma$ tail</td></tr>
+              <tr><td>$2.326$</td><td>$0.9900$</td><td>99th percentile</td></tr>
+              <tr><td>$2.576$</td><td>$0.9950$</td><td>99% CI half</td></tr>
+            </tbody>
+          </table>
         </div>
       </div>
 
