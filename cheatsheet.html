@@ -138,6 +138,16 @@
         </div>
 
         <div class="cheat-block">
+          <div class="cheat-block__title">Covariance &amp; Correlation</div>
+          $\mathrm{Cov}(X,Y)=E[XY]-E[X]E[Y]$
+          <br/>$\mathrm{Cov}(X,X)=\mathrm{Var}(X)$; bilinear &amp; symmetric
+          <br/>$\mathrm{Cov}(aX{+}b,\,cY{+}d)=ac\,\mathrm{Cov}(X,Y)$
+          <br/>$\mathrm{Cov}\!\left(\sum a_iX_i,\sum b_jY_j\right)=\sum_{i,j}a_ib_j\,\mathrm{Cov}(X_i,Y_j)$
+          <br/>$\rho=\mathrm{Cov}(X,Y)/(\sigma_X\sigma_Y)\in[-1,1]$
+          <br/><em>Indep ⇒ Cov=0; converse FALSE.</em>
+        </div>
+
+        <div class="cheat-block">
           <div class="cheat-block__title">Sum of Normals — Lecture 6D</div>
           If $X_k\sim N(\mu_k,\sigma_k^2)$ are independent:
           $$\sum_{k=1}^n X_k\sim N\!\left(\sum_{k=1}^n\mu_k,\;\sum_{k=1}^n\sigma_k^2\right)$$
@@ -195,6 +205,34 @@
         <div class="cheat-block">
           <div class="cheat-block__title">Independence recap</div>
           If $X\perp Y$: $p_{X|Y}(x|y)=p_X(x)$, $f_{X|Y}(x|y)=f_X(x)$, $E[X|Y]=E[X]$.
+        </div>
+
+        <div class="cheat-block">
+          <div class="cheat-block__title">Recognize Density by Form</div>
+          <table>
+            <thead><tr><th>If $f(x)\propto$</th><th>Distribution</th></tr></thead>
+            <tbody>
+              <tr><td>$e^{-\lambda x}$, $x&gt;0$</td><td>Exp$(\lambda)$</td></tr>
+              <tr><td>$x^{\alpha-1}e^{-\lambda x}$</td><td>$\Gamma(\alpha,\lambda)$</td></tr>
+              <tr><td>$x^{a-1}(1{-}x)^{b-1}$ on $(0,1)$</td><td>Beta$(a,b)$</td></tr>
+              <tr><td>$e^{-(x-\mu)^2/(2\sigma^2)}$</td><td>$N(\mu,\sigma^2)$</td></tr>
+              <tr><td>constant on $(a,b)$</td><td>Unif$(a,b)$</td></tr>
+            </tbody>
+          </table>
+          <em>Drop constants, match shape, then normalize.</em>
+        </div>
+
+        <div class="cheat-block">
+          <div class="cheat-block__title">Uniform on a Region</div>
+          $(X,Y)\sim\mathrm{Unif}(R)$, area $A$:
+          $$f(x,y)=\tfrac{1}{A}\,\mathbf{1}_{(x,y)\in R}$$
+          $P((X,Y)\in B)=\mathrm{Area}(B\cap R)/A$ — pure geometric probability.
+        </div>
+
+        <div class="cheat-block">
+          <div class="cheat-block__title">Bayes for Densities</div>
+          $$f_{X\mid Y}(x\mid y)=\dfrac{f_{Y\mid X}(y\mid x)\,f_X(x)}{f_Y(y)}$$
+          $f_Y(y)=\int f_{Y\mid X}(y\mid x)\,f_X(x)\,dx$ (total prob).
         </div>
       </div>
     </section>
@@ -258,6 +296,29 @@
           <div class="cheat-block__title">$k$-th order stat</div>
           $$f_{X_{(k)}}(x)=\dfrac{n!}{(k{-}1)!(n{-}k)!}F(x)^{k-1}(1{-}F(x))^{n-k}f(x)$$
           $X_{(1)}=\min$, $X_{(n)}=\max$.
+        </div>
+
+        <div class="cheat-block">
+          <div class="cheat-block__title">CDF Method (alt to Jacobian)</div>
+          For a single $Z=g(X,Y)$ (no 2nd variable needed):
+          <ol>
+            <li>$F_Z(z)=P(g(X,Y)\le z)=\displaystyle\iint_{g(x,y)\le z}f(x,y)\,dx\,dy$.</li>
+            <li>Differentiate: $f_Z(z)=F_Z'(z)$.</li>
+          </ol>
+          <em>Use when Jacobian is messy or dimension reduces ($2\to 1$).</em>
+        </div>
+
+        <div class="cheat-block">
+          <div class="cheat-block__title">Min / Max of iid</div>
+          $X_1,\dots,X_n$ iid with CDF $F$:
+          <br/>$F_{\max}(t)=F(t)^n$, $F_{\min}(t)=1{-}(1{-}F(t))^n$
+          <br/><strong>Exp race:</strong> $X_i\sim\mathrm{Exp}(\lambda_i)$ indep:
+          <ul>
+            <li>$\min X_i\sim\mathrm{Exp}(\sum\lambda_i)$</li>
+            <li>$P(X_j{=}\min)=\lambda_j/\sum\lambda_i$</li>
+            <li>$\min$ and <em>which-is-min</em> are independent</li>
+            <li>$P(X_1&lt;X_2)=\lambda_1/(\lambda_1{+}\lambda_2)$</li>
+          </ul>
         </div>
       </div>
 
@@ -335,6 +396,15 @@
               <tr><td>$2.576$</td><td>$0.9950$</td><td>99% CI half</td></tr>
             </tbody>
           </table>
+        </div>
+
+        <div class="cheat-block">
+          <div class="cheat-block__title">Useful Integrals</div>
+          $\displaystyle\int_0^\infty x^{n}e^{-\lambda x}dx=\dfrac{n!}{\lambda^{n+1}}$ (integer $n$)
+          <br/>$\displaystyle\int_0^\infty x^{\alpha-1}e^{-\lambda x}dx=\dfrac{\Gamma(\alpha)}{\lambda^{\alpha}}$
+          <br/>$\displaystyle\int_{-\infty}^\infty e^{-ax^2}dx=\sqrt{\pi/a}$
+          <br/>$\displaystyle\int_0^1 x^{a-1}(1{-}x)^{b-1}dx=\dfrac{\Gamma(a)\Gamma(b)}{\Gamma(a{+}b)}$
+          <br/><em>IBP: $\int u\,dv=uv-\int v\,du$.</em>
         </div>
       </div>
 
@@ -416,6 +486,23 @@
             <li>Recognize — read off $E[X\mid Y=y]$ by distribution.</li>
             <li>Tower: $E[X]=\int E[X\mid Y=y]\,f_Y(y)\,dy$.</li>
           </ol>
+        </div>
+
+        <div class="cheat-block">
+          <div class="cheat-block__title">Useful Sums / Series</div>
+          Geometric (finite): $\displaystyle\sum_{k=0}^{N-1}r^k=\dfrac{1{-}r^N}{1{-}r}$
+          <br/>Geometric (infinite, $|r|&lt;1$): $\displaystyle\sum_{k=0}^\infty r^k=\dfrac{1}{1{-}r}$
+          <br/>$\displaystyle\sum_{k=1}^\infty k\,r^{k-1}=\dfrac{1}{(1{-}r)^2}$
+          <br/>$\displaystyle\sum_{k=1}^\infty k^2\,r^{k-1}=\dfrac{1{+}r}{(1{-}r)^3}$
+          <br/>Exp series: $\displaystyle\sum_{k=0}^\infty \dfrac{\lambda^k}{k!}=e^\lambda$
+          <br/>$\displaystyle\sum_{k=1}^N k=\tfrac{N(N{+}1)}{2}$, $\displaystyle\sum k^2=\tfrac{N(N{+}1)(2N{+}1)}{6}$
+        </div>
+
+        <div class="cheat-block">
+          <div class="cheat-block__title">Normalizing Constant</div>
+          Given $f(x,y)=C\,g(x,y)$ on region $R$:
+          $$C=\dfrac{1}{\iint_R g(x,y)\,dx\,dy}$$
+          <em>Always do this FIRST on any joint-density problem.</em>
         </div>
       </div>
     </section>
