@@ -14,7 +14,7 @@
       <h1 style="margin: 0;">Exam Cheat Sheet</h1>
       <div style="margin-left: auto;"></div>
       <button class="btn btn--primary" onclick="window.print()">🖨 Print (Ctrl+P)</button>
-      <span class="text-sm text-muted">Letter · front+back · ~11px</span>
+      <span class="text-sm text-muted">Letter · front+back · plain English · matches lectures 6aa–6gg + 6rr</span>
     </section>
 
     <!-- ============ FRONT SIDE ============ -->
@@ -24,131 +24,220 @@
         <span class="cheat-meta">Joint · Independence · Sums · Conditionals</span>
       </div>
 
-      <!-- COL 1: Joint distributions -->
+      <!-- COL 1: Joint distributions & Independence -->
       <div class="cheat-col">
-        <h3>Joint (§6.1)</h3>
+        <h3>Joint &amp; Independence (6aa–6bb)</h3>
 
         <div class="cheat-block">
           <div class="cheat-block__title">Joint CDF</div>
-          $$F(x,y)=P(X\le x,\,Y\le y)$$
-          <ul>
-            <li>$F(-\infty,y)=F(x,-\infty)=0$</li>
-            <li>$F(\infty,\infty)=1$</li>
-            <li>$P(a_1{<}X{\le}a_2,\,b_1{<}Y{\le}b_2)=F(a_2,b_2){-}F(a_1,b_2){-}F(a_2,b_1){+}F(a_1,b_1)$</li>
-          </ul>
+          Chance both are at or below their threshold.
+          <br/>$F(x,y)=P(X\le x,\ Y\le y)$
+          <br/><em>$F$ = joint CDF &middot; $X,Y$ = two random variables &middot; $x,y$ = threshold numbers</em>
         </div>
 
         <div class="cheat-block">
           <div class="cheat-block__title">Joint PMF (discrete)</div>
-          $$p(x,y)=P(X=x,\,Y=y)$$
-          Marginals: $p_X(x)=\sum_y p(x,y)$
+          Chance X equals exactly $x$ AND Y equals exactly $y$.
+          <br/>$p(x,y)=P(X=x,\ Y=y)$
+          <br/>Marginal of X: add over all $y$ &rarr; $p_X(x)=\sum_y p(x,y)$
+          <br/><em>$p$ = joint PMF &middot; $p_X$ = marginal PMF of X alone</em>
         </div>
 
         <div class="cheat-block">
           <div class="cheat-block__title">Joint PDF (continuous)</div>
-          $$P((X,Y)\in A)=\iint_A f(x,y)\,dx\,dy$$
-          Marginals: $f_X(x)=\int f(x,y)\,dy$
-          <br/>$f(x,y)=\dfrac{\partial^2 F}{\partial x\,\partial y}$
-        </div>
-
-        <h3 style="margin-top: 6px;">Independence (§6.2)</h3>
-        <div class="cheat-block">
-          <div class="cheat-block__title">Factorization</div>
-          $X\perp Y \iff F(x,y)=F_X(x)F_Y(y)$
-          <br/>Equivalently: $f(x,y)=f_X(x)f_Y(y)$
-          <br/><strong>Lemma:</strong> If $f(x,y)=g(x)h(y)$ on a <em>rectangular</em> support, then indep.
+          Density whose double integral over a region gives the chance of landing in it.
+          <br/>$P((X,Y)\in A)=\iint_A f(x,y)\,dx\,dy$
+          <br/>Marginal of X: integrate out $y$ &rarr; $f_X(x)=\int f(x,y)\,dy$
+          <br/>From CDF: $f(x,y)=\dfrac{\partial^2 F}{\partial x\,\partial y}$
+          <br/><em>$f$ = joint PDF &middot; $A$ = region in the plane</em>
         </div>
 
         <div class="cheat-block">
-          <div class="cheat-block__title">Trap</div>
-          Support NOT rectangular ⇒ NOT independent, even if $f$ factors.
-          <br/>Example: $f(x,y)=2$ on $0&lt;x&lt;y&lt;1$ — looks like $2\cdot 1$ but $x&lt;y$ couples them.
+          <div class="cheat-block__title">Normalizing constant — DO THIS FIRST</div>
+          Find $k$ so total probability is 1.
+          <br/>$\iint_R k\,g(x,y)\,dx\,dy=1\ \Rightarrow\ k=\dfrac{1}{\iint_R g}$
+          <br/><em>$k$ = unknown constant &middot; $R$ = region where $f$ is nonzero &middot; $g$ = shape of density before scaling</em>
         </div>
 
         <div class="cheat-block">
-          <div class="cheat-block__title">Consequences</div>
+          <div class="cheat-block__title">Average of a function of X,Y</div>
+          $E[g(X,Y)]=\iint g(x,y)\,f(x,y)\,dx\,dy$ (cts)
+          <br/>$E[g(X,Y)]=\sum_x\sum_y g(x,y)\,p(x,y)$ (disc)
+          <br/><em>$g$ = any function you want the average of</em>
+        </div>
+
+        <div class="cheat-block">
+          <div class="cheat-block__title">Independence (6bb)</div>
+          X and Y are independent when the joint factors into marginals.
+          <br/>$F(x,y)=F_X(x)\,F_Y(y)$ (or PDF/PMF)
+          <br/><strong>Both must hold:</strong> (1) $f$ factors as $g(x)\,h(y)$ AND (2) region is a rectangle.
+          <br/><em>"$\perp$" means independent</em>
+        </div>
+
+        <div class="cheat-block">
+          <div class="cheat-block__title">Non-rectangular trap (6bb)</div>
+          If the region is NOT a rectangle, X and Y are NOT independent — even when the formula looks like a product.
+          <br/>Example: $f(x,y)=2$ on $0&lt;x&lt;y&lt;1$ is a triangle. The constraint $x&lt;y$ ties them.
+        </div>
+
+        <div class="cheat-block">
+          <div class="cheat-block__title">Sketch the support</div>
+          Draw the boundary lines, pick a test point, shade.
           <ul>
-            <li>$E[XY]=E[X]E[Y]$</li>
-            <li>$\mathrm{Var}(X{+}Y)=\mathrm{Var}(X){+}\mathrm{Var}(Y)$</li>
-            <li>$M_{X+Y}(t)=M_X(t)M_Y(t)$</li>
+            <li>$\{0&lt;x&lt;y&lt;1\}$: upper triangle of unit square (above diagonal)</li>
+            <li>$\{x{+}y&lt;1,\ x,y&gt;0\}$: triangle with corners $(0,0),(1,0),(0,1)$</li>
+            <li>$\{x^2{+}y^2&lt;r^2\}$: disk of radius $r$ (go polar)</li>
           </ul>
+        </div>
+
+        <div class="cheat-block">
+          <div class="cheat-block__title">Double-integral bounds (6rr)</div>
+          Sketch → pick outer variable → inner limits depend on outer.
+          <table>
+            <thead><tr><th>Region</th><th>Order $dy\,dx$</th></tr></thead>
+            <tbody>
+              <tr><td>$0{<}x{<}y{<}1$</td><td>$\int_0^1\!\int_x^1 f\,dy\,dx$</td></tr>
+              <tr><td>$x{+}y{<}1,\,x,y&gt;0$</td><td>$\int_0^1\!\int_0^{1-x} f\,dy\,dx$</td></tr>
+            </tbody>
+          </table>
+          <em>Fubini: when $f\ge 0$, you can swap $dx\,dy \leftrightarrow dy\,dx$ — just redo the limits.</em>
+        </div>
+
+        <div class="cheat-block">
+          <div class="cheat-block__title">Exp race (6aa)</div>
+          If $X\sim\mathrm{Exp}(a)$ and $Y\sim\mathrm{Exp}(b)$ are independent:
+          <br/>$P(X&lt;Y)=\dfrac{a}{a+b}$
+          <br/><em>$a,b$ = rate parameters. The faster rate (bigger) is more likely to finish first.</em>
         </div>
       </div>
 
-      <!-- COL 2: Sums -->
+      <!-- COL 2: Sums of independent RVs -->
       <div class="cheat-col">
-        <h3>Sums &amp; Convolution (§6.3)</h3>
+        <h3>Sums of Independent RVs (6cc–6dd)</h3>
 
         <div class="cheat-block">
-          <div class="cheat-block__title">Convolution</div>
-          Discrete: $p_{X+Y}(a)=\sum_k p_X(k)\,p_Y(a{-}k)$
+          <div class="cheat-block__title">What convolution is</div>
+          The distribution of the sum $X+Y$ when X and Y are independent.
+          <br/>Discrete: $p_{X+Y}(a)=\sum_k p_X(k)\,p_Y(a{-}k)$
           <br/>Continuous: $f_{X+Y}(a)=\int f_X(x)\,f_Y(a{-}x)\,dx$
-          <br/><em>Integrate only where both densities are nonzero.</em>
+          <br/><em>Only integrate/sum where BOTH $f_X$ and $f_Y$ are nonzero.</em>
         </div>
 
         <div class="cheat-block">
-          <div class="cheat-block__title">Famous Sums (iid unless noted)</div>
+          <div class="cheat-block__title">Famous sums (independent)</div>
           <table>
-            <thead><tr><th>X + Y</th><th>Result</th></tr></thead>
+            <thead><tr><th>$X+Y$</th><th>Result</th></tr></thead>
             <tbody>
-              <tr><td>Bin$(n_1,p)$ + Bin$(n_2,p)$</td><td>Bin$(n_1{+}n_2,p)$</td></tr>
+              <tr><td>Bin$(n_1,p)$ + Bin$(n_2,p)$</td><td>Bin$(n_1{+}n_2,p)$ <em>(same $p$)</em></td></tr>
               <tr><td>Poi$(\lambda_1)$ + Poi$(\lambda_2)$</td><td>Poi$(\lambda_1{+}\lambda_2)$</td></tr>
-              <tr><td>$\Gamma(\alpha_1,\lambda)$ + $\Gamma(\alpha_2,\lambda)$</td><td>$\Gamma(\alpha_1{+}\alpha_2,\lambda)$</td></tr>
-              <tr><td>$N(\mu_1,\sigma_1^2)$ + $N(\mu_2,\sigma_2^2)$</td><td>$N(\mu_1{+}\mu_2,\sigma_1^2{+}\sigma_2^2)$</td></tr>
+              <tr><td>$N(\mu_1,\sigma_1^2)$ + $N(\mu_2,\sigma_2^2)$</td><td>$N(\mu_1{+}\mu_2,\,\sigma_1^2{+}\sigma_2^2)$</td></tr>
+              <tr><td>$\Gamma(\alpha_1,\lambda)$ + $\Gamma(\alpha_2,\lambda)$</td><td>$\Gamma(\alpha_1{+}\alpha_2,\lambda)$ <em>(same rate $\lambda$)</em></td></tr>
               <tr><td>$n$ iid Exp$(\lambda)$</td><td>$\Gamma(n,\lambda)$</td></tr>
-              <tr><td>$n$ iid Geom$(p)$</td><td>NegBin$(n,p)$</td></tr>
+              <tr><td>2 iid Unif$(0,1)$</td><td>Triangular on $(0,2)$, peak at 1</td></tr>
             </tbody>
           </table>
+          <em>$\lambda$ = rate &middot; $\alpha$ = shape &middot; $\mu$ = mean &middot; $\sigma^2$ = variance</em>
         </div>
 
         <div class="cheat-block">
-          <div class="cheat-block__title">MGF Trick</div>
-          If $X\perp Y$: $M_{X+Y}(t)=M_X(t)M_Y(t)$.
-          <br/>Recognize the product → identify the sum distribution.
+          <div class="cheat-block__title">Variances always add (6dd)</div>
+          For independent X and Y:
+          <br/>$E[X+Y]=E[X]+E[Y]$ (always true)
+          <br/>$\mathrm{Var}(X+Y)=\mathrm{Var}(X)+\mathrm{Var}(Y)$ <em>(needs independence)</em>
+          <br/>Linear combo: $\mathrm{Var}(aX+bY)=a^2\mathrm{Var}(X)+b^2\mathrm{Var}(Y)$
         </div>
 
         <div class="cheat-block">
-          <div class="cheat-block__title">Expectation/Variance</div>
-          $E[aX+bY]=aE[X]+bE[Y]$ (always)
-          <br/>$\mathrm{Var}(aX{+}bY)=a^2\mathrm{Var}(X){+}b^2\mathrm{Var}(Y){+}2ab\,\mathrm{Cov}(X,Y)$
-          <br/>If indep: Cov = 0.
+          <div class="cheat-block__title">Normal + Normal (6dd)</div>
+          Sum of independent normals is normal with means summed and variances summed:
+          <br/>$\sum X_k\sim N\!\left(\sum\mu_k,\ \sum\sigma_k^2\right)$
+          <br/>Linear combo: $aX+bY\sim N(a\mu_X+b\mu_Y,\ a^2\sigma_X^2+b^2\sigma_Y^2)$
+          <br/><em>Proof by convolution + "completing the square" inside the exponent.</em>
+        </div>
+
+        <div class="cheat-block">
+          <div class="cheat-block__title">iid Exp → Gamma (6dd)</div>
+          Sum of $n$ independent Exp$(\lambda)$ random variables.
+          <br/>$Y_n=X_1+\cdots+X_n\sim\Gamma(n,\lambda)$
+          <br/>$f_{Y_n}(t)=\dfrac{\lambda^n\,t^{n-1}\,e^{-\lambda t}}{(n-1)!},\ t\ge 0$
+          <br/><em>Proved by induction: each new Exp convolves to bump the shape up by 1.</em>
+        </div>
+
+        <div class="cheat-block">
+          <div class="cheat-block__title">Beta integral &amp; Gamma+Gamma (6dd)</div>
+          Key integral that makes Gamma+Gamma work:
+          <br/>$\int_0^1 x^{a-1}(1{-}x)^{b-1}\,dx=\dfrac{\Gamma(a)\Gamma(b)}{\Gamma(a+b)}$
+          <br/>Scaled: $\int_0^t x^{\alpha-1}(t{-}x)^{\beta-1}\,dx=\dfrac{\Gamma(\alpha)\Gamma(\beta)}{\Gamma(\alpha+\beta)}\,t^{\alpha+\beta-1}$
+          <br/>Gamma function: $\Gamma(\alpha)=\int_0^\infty x^{\alpha-1}e^{-x}\,dx$
+          <br/>Beta distribution: $X\sim\mathrm{Beta}(a,b)$, $E[X]=\dfrac{a}{a+b}$
         </div>
       </div>
 
       <!-- COL 3: Conditionals -->
       <div class="cheat-col">
-        <h3>Conditionals (§6.4–6.5)</h3>
+        <h3>Conditionals (6ee–6ff)</h3>
 
         <div class="cheat-block">
-          <div class="cheat-block__title">Conditional PMF / PDF</div>
-          $$p_{X|Y}(x|y)=\dfrac{p(x,y)}{p_Y(y)} \quad \text{(discrete)}$$
-          $$f_{X|Y}(x|y)=\dfrac{f(x,y)}{f_Y(y)} \quad \text{(continuous)}$$
-          For fixed $y$: $\sum_x p_{X\mid Y}=1$ or $\int f_{X\mid Y}\,dx=1$.
+          <div class="cheat-block__title">What "conditional" means</div>
+          Once you know the value of Y, the distribution of X narrows. "Conditional on Y=y" means pretend you already observed Y=y.
         </div>
 
         <div class="cheat-block">
-          <div class="cheat-block__title">Conditional Expectation</div>
-          $$E[X\mid Y=y]=\sum_x x\,p_{X\mid Y}(x\mid y)$$
-          $$E[X\mid Y=y]=\int x\,f_{X\mid Y}(x\mid y)\,dx$$
-          $E[X|Y]$ is a <em>random variable</em> (function of $Y$).
+          <div class="cheat-block__title">Conditional PMF (6ee)</div>
+          Chance X equals $x$ GIVEN Y already equals $y$.
+          <br/>$p_{X\mid Y}(x\mid y)=\dfrac{p(x,y)}{p_Y(y)}$ when $p_Y(y)&gt;0$
+          <br/>For fixed $y$: $\sum_x p_{X\mid Y}(x\mid y)=1$
         </div>
 
         <div class="cheat-block">
-          <div class="cheat-block__title">Law of Total Expectation</div>
-          $$E[X]=E\big[E[X|Y]\big]$$
-          Discrete: $E[X]=\sum_y E[X|Y{=}y]\,p_Y(y)$
-          <br/>Cts: $E[X]=\int E[X|Y{=}y]\,f_Y(y)\,dy$
+          <div class="cheat-block__title">Conditional PDF (6ff)</div>
+          Density of X given Y=y. It's a shorthand for the chance that X is in a tiny window around $x$ given Y=y.
+          <br/>$f_{X\mid Y}(x\mid y)=\dfrac{f(x,y)}{f_Y(y)}$ when $f_Y(y)&gt;0$
+          <br/>For fixed $y$: $\int f_{X\mid Y}(x\mid y)\,dx=1$
         </div>
 
         <div class="cheat-block">
-          <div class="cheat-block__title">Law of Total Variance</div>
-          $$\mathrm{Var}(X)=E[\mathrm{Var}(X|Y)]+\mathrm{Var}(E[X|Y])$$
-          <em>"Average of the variances plus variance of the averages."</em>
+          <div class="cheat-block__title">Conditional expectation</div>
+          Average of X once you've locked in Y=y.
+          <br/>$E[X\mid Y=y]=\sum_x x\,p_{X\mid Y}(x\mid y)$ (disc)
+          <br/>$E[X\mid Y=y]=\int x\,f_{X\mid Y}(x\mid y)\,dx$ (cts)
+          <br/><em>$E[X\mid Y]$ (without a value) is itself a random variable — a function of Y.</em>
         </div>
 
         <div class="cheat-block">
-          <div class="cheat-block__title">Independence recap</div>
-          If $X\perp Y$: $p_{X|Y}(x|y)=p_X(x)$, $f_{X|Y}(x|y)=f_X(x)$, $E[X|Y]=E[X]$.
+          <div class="cheat-block__title">Law of total expectation (tower)</div>
+          To find $E[X]$ when direct is hard, average the conditional over all $y$.
+          <br/>$E[X]=E\big[E[X\mid Y]\big]$
+          <br/>Cts: $E[X]=\int E[X\mid Y{=}y]\,f_Y(y)\,dy$
+          <br/>Disc: $E[X]=\sum_y E[X\mid Y{=}y]\,p_Y(y)$
+        </div>
+
+        <div class="cheat-block">
+          <div class="cheat-block__title">Independence ⇒ conditional = marginal (6ee)</div>
+          If $X\perp Y$: knowing Y tells you nothing about X.
+          <br/>$p_{X\mid Y}(x\mid y)=p_X(x)$,&nbsp; $f_{X\mid Y}(x\mid y)=f_X(x)$,&nbsp; $E[X\mid Y]=E[X]$
+        </div>
+
+        <div class="cheat-block">
+          <div class="cheat-block__title">Uniform on a region</div>
+          $(X,Y)$ uniform on region $R$ with area $A$:
+          <br/>$f(x,y)=\dfrac{1}{A}$ for $(x,y)\in R$, else $0$
+          <br/>$P((X,Y)\in B)=\dfrac{\text{Area}(B\cap R)}{A}$ — pure geometry.
+        </div>
+
+        <div class="cheat-block">
+          <div class="cheat-block__title">Recognize density by form</div>
+          Strip constants, match the shape, then normalize.
+          <table>
+            <thead><tr><th>$f(x)\propto$</th><th>Distribution</th></tr></thead>
+            <tbody>
+              <tr><td>$e^{-\lambda x},\ x&gt;0$</td><td>Exp$(\lambda)$</td></tr>
+              <tr><td>$x^{\alpha-1}e^{-\lambda x},\ x&gt;0$</td><td>$\Gamma(\alpha,\lambda)$</td></tr>
+              <tr><td>$x^{a-1}(1{-}x)^{b-1}$ on $(0,1)$</td><td>Beta$(a,b)$</td></tr>
+              <tr><td>$e^{-(x-\mu)^2/(2\sigma^2)}$</td><td>$N(\mu,\sigma^2)$</td></tr>
+              <tr><td>constant on $(a,b)$</td><td>Unif$(a,b)$</td></tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </section>
@@ -157,123 +246,129 @@
     <section class="sheet sheet-back">
       <div class="sheet__title">
         <span>Chapter 6 — Back</span>
-        <span class="cheat-meta">Jacobian · Order Stats · Distributions · Playbook</span>
+        <span class="cheat-meta">Jacobian · Distributions · Playbook</span>
       </div>
 
       <!-- COL 1: Change of variables -->
       <div class="cheat-col">
-        <h3>Change of Variables (§6.6)</h3>
+        <h3>Change of Variables (6gg)</h3>
 
         <div class="cheat-block">
-          <div class="cheat-block__title">Univariate (monotone $g$)</div>
-          $$f_Y(y)=f_X(g^{-1}(y))\left|\dfrac{d}{dy}g^{-1}(y)\right|$$
+          <div class="cheat-block__title">What the Jacobian does</div>
+          When you swap from $(X,Y)$ to a new pair $(U,V)$, area elements stretch. The Jacobian $|J|$ is the stretch factor that keeps total probability equal to 1.
         </div>
 
         <div class="cheat-block">
-          <div class="cheat-block__title">Bivariate Jacobian</div>
-          Given $U=g_1(X,Y)$, $V=g_2(X,Y)$, solve for $X=h_1(U,V)$, $Y=h_2(U,V)$.
-          $$J=\det\!\begin{pmatrix} \partial x/\partial u & \partial x/\partial v \\ \partial y/\partial u & \partial y/\partial v \end{pmatrix}$$
-          $$f_{U,V}(u,v)=f_{X,Y}(h_1,h_2)\,|J|$$
-          <em>(Or equivalently divide by $|J_{X\to UV}|$ — same number, whichever you compute.)</em>
+          <div class="cheat-block__title">Univariate transform</div>
+          If $Y=g(X)$ with $g$ smooth and one-to-one:
+          <br/>$f_Y(y)=f_X(g^{-1}(y))\left|\dfrac{d}{dy}g^{-1}(y)\right|$
+          <br/><em>$g^{-1}$ = inverse function &middot; $|\cdot|$ = absolute value (never negative density)</em>
         </div>
 
         <div class="cheat-block">
-          <div class="cheat-block__title">4-Step Recipe</div>
+          <div class="cheat-block__title">Bivariate Jacobian (6gg)</div>
+          Set $U=g_1(X,Y)$, $V=g_2(X,Y)$. Solve for $X=h_1(U,V)$, $Y=h_2(U,V)$.
+          <br/>$J=\det\!\begin{pmatrix} \partial x/\partial u &amp; \partial x/\partial v \\ \partial y/\partial u &amp; \partial y/\partial v \end{pmatrix}=\dfrac{\partial x}{\partial u}\dfrac{\partial y}{\partial v}-\dfrac{\partial x}{\partial v}\dfrac{\partial y}{\partial u}$
+          <br/>$f_{U,V}(u,v)=f_{X,Y}(h_1,h_2)\,|J|$
+        </div>
+
+        <div class="cheat-block">
+          <div class="cheat-block__title">4-step recipe</div>
           <ol>
-            <li>Write $U=g_1, V=g_2$.</li>
+            <li>Write $U,V$ as functions of $X,Y$.</li>
             <li>Solve for $X,Y$ in terms of $U,V$.</li>
-            <li>Compute $|J|$.</li>
-            <li><strong>Find new support</strong> (image of original region).</li>
+            <li>Compute $|J|$ (always take absolute value).</li>
+            <li><strong>Find the new region</strong> — map old boundaries into $(U,V)$ plane.</li>
           </ol>
         </div>
 
-        <h3 style="margin-top: 6px;">Order Statistics</h3>
         <div class="cheat-block">
-          <div class="cheat-block__title">Joint density of all order stats</div>
-          $$f_{X_{(1)},\dots,X_{(n)}}(x_1,\dots,x_n)=n!\prod_i f(x_i)$$
-          on $x_1&lt;x_2&lt;\dots&lt;x_n$.
+          <div class="cheat-block__title">Common substitutions</div>
+          <table>
+            <thead><tr><th>$U,V$</th><th>$X,Y$</th><th>$|J|$</th></tr></thead>
+            <tbody>
+              <tr><td>$U{=}X{+}Y,\ V{=}X$</td><td>$X{=}V,\ Y{=}U{-}V$</td><td>$1$</td></tr>
+              <tr><td>$U{=}X{+}Y,\ V{=}X{-}Y$</td><td>$X{=}\tfrac{U+V}{2},\ Y{=}\tfrac{U-V}{2}$</td><td>$\tfrac{1}{2}$</td></tr>
+              <tr><td>$U{=}XY,\ V{=}X$</td><td>$X{=}V,\ Y{=}U/V$</td><td>$1/|V|$</td></tr>
+              <tr><td>$U{=}X/Y,\ V{=}Y$</td><td>$X{=}UV,\ Y{=}V$</td><td>$|V|$</td></tr>
+            </tbody>
+          </table>
         </div>
+
         <div class="cheat-block">
-          <div class="cheat-block__title">$k$-th order stat</div>
-          $$f_{X_{(k)}}(x)=\dfrac{n!}{(k{-}1)!(n{-}k)!}F(x)^{k-1}(1{-}F(x))^{n-k}f(x)$$
-          $X_{(1)}=\min$, $X_{(n)}=\max$.
+          <div class="cheat-block__title">Polar (6gg + 6rr)</div>
+          $X=R\cos\Theta$, $Y=R\sin\Theta$ &rarr; $|J|=R$, so $dx\,dy=r\,dr\,d\theta$.
+          <br/>Example (standard normals): if $X,Y\sim N(0,1)$ indep, then
+          <br/>$f_{R,\Theta}(r,\theta)=\dfrac{1}{2\pi}\,r\,e^{-r^2/2}$ on $r\ge 0,\ 0\le\theta&lt;2\pi$
+          <br/><em>$R$ = radius &middot; $\Theta$ = angle</em>
         </div>
       </div>
 
-      <!-- COL 2: Distributions -->
+      <!-- COL 2: Distributions reference -->
       <div class="cheat-col">
-        <h3>Discrete Distributions</h3>
+        <h3>Distributions Reference</h3>
+
         <div class="cheat-block">
+          <div class="cheat-block__title">Discrete</div>
           <table>
             <thead><tr><th>Name</th><th>PMF</th><th>$E$</th><th>Var</th></tr></thead>
             <tbody>
-              <tr><td>Bernoulli$(p)$</td><td>$p^x(1{-}p)^{1-x}$</td><td>$p$</td><td>$p(1{-}p)$</td></tr>
-              <tr><td>Binomial$(n,p)$</td><td>$\binom{n}{k}p^k(1{-}p)^{n-k}$</td><td>$np$</td><td>$np(1{-}p)$</td></tr>
+              <tr><td>Bern$(p)$</td><td>$p^x(1{-}p)^{1-x}$</td><td>$p$</td><td>$p(1{-}p)$</td></tr>
+              <tr><td>Bin$(n,p)$</td><td>$\binom{n}{k}p^k(1{-}p)^{n-k}$</td><td>$np$</td><td>$np(1{-}p)$</td></tr>
               <tr><td>Geom$(p)$</td><td>$(1{-}p)^{k-1}p$</td><td>$1/p$</td><td>$(1{-}p)/p^2$</td></tr>
-              <tr><td>NegBin$(r,p)$</td><td>$\binom{k-1}{r-1}p^r(1{-}p)^{k-r}$</td><td>$r/p$</td><td>$r(1{-}p)/p^2$</td></tr>
               <tr><td>Poi$(\lambda)$</td><td>$\dfrac{\lambda^k e^{-\lambda}}{k!}$</td><td>$\lambda$</td><td>$\lambda$</td></tr>
             </tbody>
           </table>
+          <em>$p$ = success prob &middot; $n$ = # trials &middot; $\lambda$ = rate/mean count &middot; $k$ = integer count</em>
         </div>
 
-        <h3>Continuous Distributions</h3>
         <div class="cheat-block">
+          <div class="cheat-block__title">Continuous</div>
           <table>
             <thead><tr><th>Name</th><th>PDF</th><th>$E$</th><th>Var</th></tr></thead>
             <tbody>
-              <tr><td>Unif$(a,b)$</td><td>$\tfrac{1}{b-a}$</td><td>$\tfrac{a+b}{2}$</td><td>$\tfrac{(b-a)^2}{12}$</td></tr>
+              <tr><td>Unif$(a,b)$</td><td>$\dfrac{1}{b-a}$</td><td>$\dfrac{a+b}{2}$</td><td>$\dfrac{(b-a)^2}{12}$</td></tr>
               <tr><td>Exp$(\lambda)$</td><td>$\lambda e^{-\lambda x}$</td><td>$1/\lambda$</td><td>$1/\lambda^2$</td></tr>
-              <tr><td>$\Gamma(\alpha,\lambda)$</td><td>$\tfrac{\lambda^\alpha x^{\alpha-1}e^{-\lambda x}}{\Gamma(\alpha)}$</td><td>$\alpha/\lambda$</td><td>$\alpha/\lambda^2$</td></tr>
-              <tr><td>$N(\mu,\sigma^2)$</td><td>$\tfrac{1}{\sigma\sqrt{2\pi}}e^{-(x-\mu)^2/(2\sigma^2)}$</td><td>$\mu$</td><td>$\sigma^2$</td></tr>
-              <tr><td>Beta$(\alpha,\beta)$</td><td>$\tfrac{x^{\alpha-1}(1-x)^{\beta-1}}{B(\alpha,\beta)}$</td><td>$\tfrac{\alpha}{\alpha+\beta}$</td><td>$\tfrac{\alpha\beta}{(\alpha+\beta)^2(\alpha+\beta+1)}$</td></tr>
+              <tr><td>$\Gamma(\alpha,\lambda)$</td><td>$\dfrac{\lambda^\alpha x^{\alpha-1}e^{-\lambda x}}{\Gamma(\alpha)}$</td><td>$\alpha/\lambda$</td><td>$\alpha/\lambda^2$</td></tr>
+              <tr><td>$N(\mu,\sigma^2)$</td><td>$\dfrac{1}{\sigma\sqrt{2\pi}}e^{-(x-\mu)^2/(2\sigma^2)}$</td><td>$\mu$</td><td>$\sigma^2$</td></tr>
+              <tr><td>Beta$(a,b)$</td><td>$\dfrac{x^{a-1}(1{-}x)^{b-1}}{B(a,b)}$ on $(0,1)$</td><td>$\dfrac{a}{a+b}$</td><td>$\dfrac{ab}{(a+b)^2(a+b+1)}$</td></tr>
             </tbody>
           </table>
+          <em>$\alpha$ = shape &middot; $\lambda$ = rate &middot; $\mu$ = mean &middot; $\sigma$ = std dev &middot; $B(a,b)=\Gamma(a)\Gamma(b)/\Gamma(a{+}b)$</em>
         </div>
 
         <div class="cheat-block">
-          <div class="cheat-block__title">Identities</div>
+          <div class="cheat-block__title">Gamma-function identities</div>
           <ul>
-            <li>$\Gamma(n)=(n{-}1)!$ for positive integer $n$</li>
-            <li>$\Gamma(1/2)=\sqrt{\pi}$, $\Gamma(x{+}1)=x\,\Gamma(x)$</li>
-            <li>Exp is memoryless: $P(X{>}s{+}t\mid X{>}s)=P(X{>}t)$</li>
-            <li>If $Z\sim N(0,1)$: $Z^2\sim\chi^2_1=\Gamma(1/2,1/2)$</li>
+            <li>$\Gamma(n)=(n{-}1)!$ when $n$ is a positive integer</li>
+            <li>$\Gamma(1/2)=\sqrt{\pi}$</li>
+            <li>$\Gamma(x{+}1)=x\,\Gamma(x)$ (recurrence)</li>
           </ul>
         </div>
 
-        <h3 style="margin-top:6px;">Standard Normal $\Phi$</h3>
         <div class="cheat-block">
-          <div class="cheat-block__title">Notation &amp; symmetry</div>
-          $Z\sim N(0,1)$: $\Phi(z)=P(Z\le z)=\int_{-\infty}^z\tfrac{1}{\sqrt{2\pi}}e^{-t^2/2}dt$
-          <br/><strong>Symmetry:</strong> $\Phi(-z)=1-\Phi(z)$
-          <br/>$P(a&lt;Z&lt;b)=\Phi(b)-\Phi(a)$
-          <br/>$P(\lvert Z\rvert&gt;z)=2(1-\Phi(z))$
-          <br/><strong>Standardize:</strong> if $X\sim N(\mu,\sigma^2)$, then $Z=\dfrac{X-\mu}{\sigma}\sim N(0,1)$
+          <div class="cheat-block__title">Memoryless (Exp)</div>
+          An Exp "forgets" how long you've already waited.
+          <br/>$P(X&gt;s{+}t\mid X&gt;s)=P(X&gt;t)$
+          <br/><em>$s$ = time already waited &middot; $t$ = extra time</em>
         </div>
+
         <div class="cheat-block">
-          <div class="cheat-block__title">Empirical rule (68–95–99.7)</div>
-          <table>
-            <thead><tr><th>$\pm k\sigma$</th><th>$P(\lvert X-\mu\rvert&lt;k\sigma)$</th></tr></thead>
-            <tbody>
-              <tr><td>$\pm 1\sigma$</td><td>$\approx 0.6827$</td></tr>
-              <tr><td>$\pm 2\sigma$</td><td>$\approx 0.9545$</td></tr>
-              <tr><td>$\pm 3\sigma$</td><td>$\approx 0.9973$</td></tr>
-            </tbody>
-          </table>
+          <div class="cheat-block__title">Useful integrals</div>
+          $\int_0^\infty x^{n}e^{-\lambda x}\,dx=\dfrac{n!}{\lambda^{n+1}}$ ($n$ integer)
+          <br/>$\int_0^\infty x^{\alpha-1}e^{-\lambda x}\,dx=\dfrac{\Gamma(\alpha)}{\lambda^{\alpha}}$
+          <br/>$\int_{-\infty}^\infty e^{-ax^2}\,dx=\sqrt{\pi/a}$
+          <br/>$\int_0^1 x^{a-1}(1{-}x)^{b-1}\,dx=\dfrac{\Gamma(a)\Gamma(b)}{\Gamma(a+b)}$
+          <br/>Polar: $dx\,dy=r\,dr\,d\theta$
         </div>
+
         <div class="cheat-block">
-          <div class="cheat-block__title">Key $\Phi$ values</div>
-          <table>
-            <thead><tr><th>$z$</th><th>$\Phi(z)$</th><th>Use</th></tr></thead>
-            <tbody>
-              <tr><td>$1.00$</td><td>$0.8413$</td><td>$\pm1\sigma$ tail</td></tr>
-              <tr><td>$1.28$</td><td>$0.9000$</td><td>90th percentile</td></tr>
-              <tr><td>$1.645$</td><td>$0.9500$</td><td>95th percentile</td></tr>
-              <tr><td>$1.96$</td><td>$0.9750$</td><td>95% CI half</td></tr>
-              <tr><td>$2.00$</td><td>$0.9772$</td><td>$\pm2\sigma$ tail</td></tr>
-              <tr><td>$2.326$</td><td>$0.9900$</td><td>99th percentile</td></tr>
-              <tr><td>$2.576$</td><td>$0.9950$</td><td>99% CI half</td></tr>
-            </tbody>
-          </table>
+          <div class="cheat-block__title">Useful sums</div>
+          Geometric (infinite, $|r|&lt;1$): $\sum_{k=0}^\infty r^k=\dfrac{1}{1-r}$
+          <br/>Finite: $\sum_{k=0}^{N-1}r^k=\dfrac{1-r^N}{1-r}$
+          <br/>$\sum_{k=1}^\infty k\,r^{k-1}=\dfrac{1}{(1-r)^2}$
+          <br/>Exp series: $\sum_{k=0}^\infty \dfrac{\lambda^k}{k!}=e^\lambda$
+          <br/>$\sum_{k=1}^N k=\dfrac{N(N{+}1)}{2}$
         </div>
       </div>
 
@@ -282,55 +377,83 @@
         <h3>Exam Playbook</h3>
 
         <div class="cheat-block">
-          <div class="cheat-block__title">Joint density on region (Q1-style)</div>
+          <div class="cheat-block__title">Q1 — Joint density on a region</div>
           <ol>
-            <li>Sketch support → set integration bounds.</li>
-            <li>Normalize: $\iint f = 1$ → solve for constant.</li>
-            <li>Marginal: integrate out the other variable.</li>
-            <li>Probability: integrate $f$ over the event region.</li>
-            <li>Independence: check if support is a rectangle AND $f$ factors.</li>
+            <li>Sketch the region. Pick outer variable.</li>
+            <li>Normalize: $\iint f=1$ &rarr; solve for the constant.</li>
+            <li>Marginals: integrate out the other variable.</li>
+            <li>$P(\text{event})$: integrate $f$ over the event region.</li>
+            <li>Independence: check BOTH — $f$ factors AND region is rectangle.</li>
           </ol>
         </div>
 
         <div class="cheat-block">
-          <div class="cheat-block__title">Jacobian (Q2-style)</div>
+          <div class="cheat-block__title">Q2 — Jacobian transform</div>
           <ol>
             <li>Pick $U,V$ that simplify the geometry.</li>
-            <li>Invert to $X(U,V), Y(U,V)$.</li>
+            <li>Solve for $X(U,V),\ Y(U,V)$.</li>
             <li>Compute $|J|$.</li>
-            <li>Map support.</li>
-            <li>Write $f_{U,V}$ and integrate.</li>
+            <li><strong>Map the region</strong> — find the new bounds in $(U,V)$.</li>
+            <li>Write $f_{U,V}=f_{X,Y}(h_1,h_2)\cdot|J|$ and integrate.</li>
           </ol>
         </div>
 
         <div class="cheat-block">
-          <div class="cheat-block__title">Discrete triangular (Q3-style)</div>
+          <div class="cheat-block__title">Q3 — Discrete conditional</div>
           <ol>
             <li>Find $C$ from $\sum\sum p(n,m)=1$.</li>
-            <li>Use $k=n{-}m$ or similar substitution to simplify sums.</li>
-            <li>Recall $\sum_{n=1}^N n=\tfrac{N(N+1)}{2}$, $\sum n^2=\tfrac{N(N+1)(2N+1)}{6}$.</li>
-            <li>Conditional: $P(A|B)=P(A{\cap}B)/P(B)$.</li>
+            <li>Marginal: $p_Y(y)=\sum_x p(x,y)$.</li>
+            <li>Conditional: $p_{X\mid Y}(x\mid y)=p(x,y)/p_Y(y)$.</li>
+            <li>$E[X\mid Y{=}y]=\sum_x x\,p_{X\mid Y}(x\mid y)$.</li>
           </ol>
         </div>
 
         <div class="cheat-block">
-          <div class="cheat-block__title">CDF→E[X] (Q4-style)</div>
+          <div class="cheat-block__title">Q4 — CDF → PDF → E[X]</div>
           <ol>
-            <li>Differentiate $F$ to get $f$.</li>
-            <li>Recognize $f$ as known (Exp, Γ, Rayleigh, …).</li>
-            <li>$E[X]=\int x f(x)\,dx$. Substitution $u=x^2$ for Rayleigh-ish.</li>
-            <li>Reduce to Gamma: $\int_0^\infty u^{s-1}e^{-u}du=\Gamma(s)$.</li>
+            <li>Differentiate $F$ to get $f$: $f(x)=F'(x)$.</li>
+            <li>Match $f$ to a known form (Exp, Γ, etc.).</li>
+            <li>$E[X]=\int x\,f(x)\,dx$.</li>
+            <li>Reduce to Gamma: $\int_0^\infty u^{s-1}e^{-u}\,du=\Gamma(s)$.</li>
           </ol>
+        </div>
+
+        <div class="cheat-block">
+          <div class="cheat-block__title">Convolution checklist</div>
+          For $f_{X+Y}(t)=\int f_X(x)\,f_Y(t{-}x)\,dx$:
+          <ol>
+            <li>Write the product $f_X(x)\cdot f_Y(t{-}x)$.</li>
+            <li>Find the $x$-range where BOTH are nonzero (depends on $t$).</li>
+            <li>Integrate over that range.</li>
+            <li>Recognize a known density — done.</li>
+          </ol>
+        </div>
+
+        <div class="cheat-block">
+          <div class="cheat-block__title">Conditional density checklist</div>
+          <ol>
+            <li>Marginal: $f_Y(y)=\int f(x,y)\,dx$.</li>
+            <li>Divide: $f_{X\mid Y}(x\mid y)=f(x,y)/f_Y(y)$.</li>
+            <li>Verify: $\int f_{X\mid Y}(x\mid y)\,dx=1$ for each fixed $y$.</li>
+            <li>$E[X\mid Y{=}y]=\int x\,f_{X\mid Y}(x\mid y)\,dx$.</li>
+          </ol>
+        </div>
+
+        <div class="cheat-block">
+          <div class="cheat-block__title">Normalizing constant</div>
+          Always the first move on a "find $k$" problem.
+          <br/>$f(x,y)=C\,g(x,y)$ on region $R$:
+          <br/>$C=\dfrac{1}{\iint_R g(x,y)\,dx\,dy}$
         </div>
 
         <div class="cheat-block">
           <div class="cheat-block__title">Traps checklist</div>
           <ul>
-            <li>☐ Is support rectangular?</li>
-            <li>☐ Did I take $|J|$ not $J$?</li>
-            <li>☐ Did I update the support after transformation?</li>
-            <li>☐ Did I square the density-variable change for CDF/PDF conversion?</li>
-            <li>☐ Is the denominator in conditional $&gt; 0$?</li>
+            <li>☐ Is the support a rectangle? (if no &rarr; not independent)</li>
+            <li>☐ Did I use $|J|$, not just $J$?</li>
+            <li>☐ Did I update the region after transforming?</li>
+            <li>☐ Is the denominator in a conditional $&gt;0$?</li>
+            <li>☐ Did I normalize first?</li>
           </ul>
         </div>
       </div>
