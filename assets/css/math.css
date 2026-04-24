@@ -1,0 +1,91 @@
+/* Math rendering overrides */
+.katex-display {
+  margin: var(--s-4) 0 !important;
+  padding: var(--s-3) var(--s-4);
+  background: var(--math-bg);
+  border: 1px solid var(--math-border);
+  border-radius: var(--r-sm);
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.katex {
+  font-size: 1.05em;
+}
+
+.math-block {
+  padding: var(--s-3) var(--s-4);
+  background: var(--math-bg);
+  border: 1px solid var(--math-border);
+  border-radius: var(--r-sm);
+  margin: var(--s-3) 0;
+  overflow-x: auto;
+}
+
+.math-block__title {
+  font-family: var(--font-ui);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+  margin-bottom: var(--s-2);
+}
+
+.definition {
+  padding: var(--s-3) var(--s-4);
+  background: var(--accent-soft);
+  border-left: 4px solid var(--accent);
+  border-radius: var(--r-sm);
+  margin: var(--s-3) 0;
+}
+
+.definition__label {
+  font-family: var(--font-ui);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent-strong);
+  margin-bottom: var(--s-2);
+}
+
+.theorem {
+  padding: var(--s-3) var(--s-4);
+  background: var(--surface-2);
+  border-left: 4px solid var(--accent-strong);
+  border-radius: var(--r-sm);
+  margin: var(--s-3) 0;
+}
+
+.theorem__label {
+  font-family: var(--font-ui);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent-strong);
+  margin-bottom: var(--s-2);
+}
+
+.example {
+  padding: var(--s-3) var(--s-4);
+  background: var(--success-soft);
+  border-left: 4px solid var(--success);
+  border-radius: var(--r-sm);
+  margin: var(--s-3) 0;
+}
+
+.example__label {
+  font-family: var(--font-ui);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--success);
+  margin-bottom: var(--s-2);
+}
+
+.example__body {
+  font-size: var(--fs-sm);
+}

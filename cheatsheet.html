@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Probability Sensei — Exam Cheat Sheet</title>
+  <link rel="stylesheet" href="./assets/css/app.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" integrity="sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+" crossorigin="anonymous" />
+</head>
+<body data-page="cheat">
+  <header id="site-header" class="no-print"></header>
+  <main id="app" class="container cheat-sheet">
+    <section class="print-controls no-print">
+      <h1 style="margin: 0;">Exam Cheat Sheet</h1>
+      <div style="margin-left: auto;"></div>
+      <button class="btn btn--primary" onclick="window.print()">🖨 Print (Ctrl+P)</button>
+      <span class="text-sm text-muted">Letter · front+back · ~11px</span>
+    </section>
+
+    <!-- ============ FRONT SIDE ============ -->
+    <section class="sheet sheet-front">
+      <div class="sheet__title">
+        <span>Chapter 6 — Front</span>
+        <span class="cheat-meta">Joint · Independence · Sums · Conditionals</span>
+      </div>
+
+      <!-- COL 1: Joint distributions -->
+      <div class="cheat-col">
+        <h3>Joint (§6.1)</h3>
+
+        <div class="cheat-block">
+          <div class="cheat-block__title">Joint CDF</div>
+          $$F(x,y)=P(X\le x,\,Y\le y)$$
+          <ul>
+            <li>$F(-\infty,y)=F(x,-\infty)=0$</li>
+            <li>$F(\infty,\infty)=1$</li>
+            <li>$P(a_1{<}X{\le}a_2,\,b_1{<}Y{\le}b_2)=F(a_2,b_2){-}F(a_1,b_2){-}F(a_2,b_1){+}F(a_1,b_1)$</li>
+          </ul>
+        </div>
+
+        <div class="cheat-block">
+          <div class="cheat-block__title">Joint PMF (discrete)</div>
+          $$p(x,y)=P(X{=}x,Y{=}y)$$
+          Marginals: $p_X(x)=\sum_y p(x,y)$
+        </div>
+
+        <div class="cheat-block">
+          <div class="cheat-block__title">Joint PDF (continuous)</div>
+          $$P((X,Y)\in A)=\iint_A f(x,y)\,dx\,dy$$
+          Marginals: $f_X(x)=\int f(x,y)\,dy$
+          <br/>$f(x,y)=\dfrac{\partial^2 F}{\partial x\,\partial y}$
+        </div>
+
+        <h3 style="margin-top: 6px;">Independence (§6.2)</h3>
+        <div class="cheat-block">
+          <div class="cheat-block__title">Factorization</div>
+          $X\perp Y \iff F(x,y)=F_X(x)F_Y(y)$
+          <br/>Equivalently: $f(x,y)=f_X(x)f_Y(y)$
+          <br/><strong>Lemma:</strong> If $f(x,y)=g(x)h(y)$ on a <em>rectangular</em> support, then indep.
+        </div>
+
+        <div class="cheat-block">
+          <div class="cheat-block__title">Trap</div>
+          Support NOT rectangular ⇒ NOT independent, even if $f$ factors.
+          <br/>Example: $f(x,y)=2$ on $0&lt;x&lt;y&lt;1$ — looks like $2\cdot 1$ but $x&lt;y$ couples them.
+        </div>
+
+        <div class="cheat-block">
+          <div class="cheat-block__title">Consequences</div>
+          <ul>
+            <li>$E[XY]=E[X]E[Y]$</li>
+            <li>$\mathrm{Var}(X{+}Y)=\mathrm{Var}(X){+}\mathrm{Var}(Y)$</li>
+            <li>$M_{X+Y}(t)=M_X(t)M_Y(t)$</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- COL 2: Sums -->
+      <div class="cheat-col">
+        <h3>Sums &amp; Convolution (§6.3)</h3>
+
+        <div class="cheat-block">
+          <div class="cheat-block__title">Convolution</div>
+          Discrete: $p_{X+Y}(a)=\sum_k p_X(k)\,p_Y(a{-}k)$
+          <br/>Continuous: $f_{X+Y}(a)=\int f_X(x)\,f_Y(a{-}x)\,dx$
+          <br/><em>Integrate only where both densities are nonzero.</em>
+        </div>
+
+        <div class="cheat-block">
+          <div class="cheat-block__title">Famous Sums (iid unless noted)</div>
+          <table>
+            <thead><tr><th>X + Y</th><th>Result</th></tr></thead>
+            <tbody>
+              <tr><td>Bin$(n_1,p)$ + Bin$(n_2,p)$</td><td>Bin$(n_1{+}n_2,p)$</td></tr>
+              <tr><td>Poi$(\lambda_1)$ + Poi$(\lambda_2)$</td><td>Poi$(\lambda_1{+}\lambda_2)$</td></tr>
+              <tr><td>$\Gamma(\alpha_1,\lambda)$ + $\Gamma(\alpha_2,\lambda)$</td><td>$\Gamma(\alpha_1{+}\alpha_2,\lambda)$</td></tr>
+              <tr><td>$N(\mu_1,\sigma_1^2)$ + $N(\mu_2,\sigma_2^2)$</td><td>$N(\mu_1{+}\mu_2,\sigma_1^2{+}\sigma_2^2)$</td></tr>
+              <tr><td>$n$ iid Exp$(\lambda)$</td><td>$\Gamma(n,\lambda)$</td></tr>
+              <tr><td>$n$ iid Geom$(p)$</td><td>NegBin$(n,p)$</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="cheat-block">
+          <div class="cheat-block__title">MGF Trick</div>
+          If $X\perp Y$: $M_{X+Y}(t)=M_X(t)M_Y(t)$.
+          <br/>Recognize the product → identify the sum distribution.
+        </div>
+
+        <div class="cheat-block">
+          <div class="cheat-block__title">Expectation/Variance</div>
+          $E[aX+bY]=aE[X]+bE[Y]$ (always)
+          <br/>$\mathrm{Var}(aX{+}bY)=a^2\mathrm{Var}(X){+}b^2\mathrm{Var}(Y){+}2ab\,\mathrm{Cov}(X,Y)$
+          <br/>If indep: Cov = 0.
+        </div>
+      </div>
+
+      <!-- COL 3: Conditionals -->
+      <div class="cheat-col">
+        <h3>Conditionals (§6.4–6.5)</h3>
+
+        <div class="cheat-block">
+          <div class="cheat-block__title">Conditional PMF / PDF</div>
+          $$p_{X|Y}(x|y)=\dfrac{p(x,y)}{p_Y(y)} \quad \text{(discrete)}$$
+          $$f_{X|Y}(x|y)=\dfrac{f(x,y)}{f_Y(y)} \quad \text{(continuous)}$$
+          For fixed $y$: $\sum_x p_{X|Y}=1$ or $\int f_{X|Y}dx=1$.
+        </div>
+
+        <div class="cheat-block">
+          <div class="cheat-block__title">Conditional Expectation</div>
+          $$E[X|Y{=}y]=\sum_x x\,p_{X|Y}(x|y)$$
+          $$E[X|Y{=}y]=\int x\,f_{X|Y}(x|y)\,dx$$
+          $E[X|Y]$ is a <em>random variable</em> (function of $Y$).
+        </div>
+
+        <div class="cheat-block">
+          <div class="cheat-block__title">Law of Total Expectation</div>
+          $$E[X]=E\big[E[X|Y]\big]$$
+          Discrete: $E[X]=\sum_y E[X|Y{=}y]\,p_Y(y)$
+          <br/>Cts: $E[X]=\int E[X|Y{=}y]\,f_Y(y)\,dy$
+        </div>
+
+        <div class="cheat-block">
+          <div class="cheat-block__title">Law of Total Variance</div>
+          $$\mathrm{Var}(X)=E[\mathrm{Var}(X|Y)]+\mathrm{Var}(E[X|Y])$$
+          <em>"Average of the variances plus variance of the averages."</em>
+        </div>
+
+        <div class="cheat-block">
+          <div class="cheat-block__title">Independence recap</div>
+          If $X\perp Y$: $p_{X|Y}(x|y)=p_X(x)$, $f_{X|Y}(x|y)=f_X(x)$, $E[X|Y]=E[X]$.
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ BACK SIDE ============ -->
+    <section class="sheet sheet-back">
+      <div class="sheet__title">
+        <span>Chapter 6 — Back</span>
+        <span class="cheat-meta">Jacobian · Order Stats · Distributions · Playbook</span>
+      </div>
+
+      <!-- COL 1: Change of variables -->
+      <div class="cheat-col">
+        <h3>Change of Variables (§6.6)</h3>
+
+        <div class="cheat-block">
+          <div class="cheat-block__title">Univariate (monotone $g$)</div>
+          $$f_Y(y)=f_X(g^{-1}(y))\left|\dfrac{d}{dy}g^{-1}(y)\right|$$
+        </div>
+
+        <div class="cheat-block">
+          <div class="cheat-block__title">Bivariate Jacobian</div>
+          Given $U=g_1(X,Y)$, $V=g_2(X,Y)$, solve for $X=h_1(U,V)$, $Y=h_2(U,V)$.
+          $$J=\det\!\begin{pmatrix} \partial x/\partial u & \partial x/\partial v \\ \partial y/\partial u & \partial y/\partial v \end{pmatrix}$$
+          $$f_{U,V}(u,v)=f_{X,Y}(h_1,h_2)\,|J|$$
+          <em>(Or equivalently divide by $|J_{X\to UV}|$ — same number, whichever you compute.)</em>
+        </div>
+
+        <div class="cheat-block">
+          <div class="cheat-block__title">4-Step Recipe</div>
+          <ol>
+            <li>Write $U=g_1, V=g_2$.</li>
+            <li>Solve for $X,Y$ in terms of $U,V$.</li>
+            <li>Compute $|J|$.</li>
+            <li><strong>Find new support</strong> (image of original region).</li>
+          </ol>
+        </div>
+
+        <h3 style="margin-top: 6px;">Order Statistics</h3>
+        <div class="cheat-block">
+          <div class="cheat-block__title">Joint density of all order stats</div>
+          $$f_{X_{(1)},\dots,X_{(n)}}(x_1,\dots,x_n)=n!\prod_i f(x_i)$$
+          on $x_1&lt;x_2&lt;\dots&lt;x_n$.
+        </div>
+        <div class="cheat-block">
+          <div class="cheat-block__title">$k$-th order stat</div>
+          $$f_{X_{(k)}}(x)=\dfrac{n!}{(k{-}1)!(n{-}k)!}F(x)^{k-1}(1{-}F(x))^{n-k}f(x)$$
+          $X_{(1)}=\min$, $X_{(n)}=\max$.
+        </div>
+      </div>
+
+      <!-- COL 2: Distributions -->
+      <div class="cheat-col">
+        <h3>Discrete Distributions</h3>
+        <div class="cheat-block">
+          <table>
+            <thead><tr><th>Name</th><th>PMF</th><th>$E$</th><th>Var</th></tr></thead>
+            <tbody>
+              <tr><td>Bernoulli$(p)$</td><td>$p^x(1{-}p)^{1-x}$</td><td>$p$</td><td>$p(1{-}p)$</td></tr>
+              <tr><td>Binomial$(n,p)$</td><td>$\binom{n}{k}p^k(1{-}p)^{n-k}$</td><td>$np$</td><td>$np(1{-}p)$</td></tr>
+              <tr><td>Geom$(p)$</td><td>$(1{-}p)^{k-1}p$</td><td>$1/p$</td><td>$(1{-}p)/p^2$</td></tr>
+              <tr><td>NegBin$(r,p)$</td><td>$\binom{k-1}{r-1}p^r(1{-}p)^{k-r}$</td><td>$r/p$</td><td>$r(1{-}p)/p^2$</td></tr>
+              <tr><td>Poi$(\lambda)$</td><td>$\dfrac{\lambda^k e^{-\lambda}}{k!}$</td><td>$\lambda$</td><td>$\lambda$</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Continuous Distributions</h3>
+        <div class="cheat-block">
+          <table>
+            <thead><tr><th>Name</th><th>PDF</th><th>$E$</th><th>Var</th></tr></thead>
+            <tbody>
+              <tr><td>Unif$(a,b)$</td><td>$\tfrac{1}{b-a}$</td><td>$\tfrac{a+b}{2}$</td><td>$\tfrac{(b-a)^2}{12}$</td></tr>
+              <tr><td>Exp$(\lambda)$</td><td>$\lambda e^{-\lambda x}$</td><td>$1/\lambda$</td><td>$1/\lambda^2$</td></tr>
+              <tr><td>$\Gamma(\alpha,\lambda)$</td><td>$\tfrac{\lambda^\alpha x^{\alpha-1}e^{-\lambda x}}{\Gamma(\alpha)}$</td><td>$\alpha/\lambda$</td><td>$\alpha/\lambda^2$</td></tr>
+              <tr><td>$N(\mu,\sigma^2)$</td><td>$\tfrac{1}{\sigma\sqrt{2\pi}}e^{-(x-\mu)^2/(2\sigma^2)}$</td><td>$\mu$</td><td>$\sigma^2$</td></tr>
+              <tr><td>Beta$(\alpha,\beta)$</td><td>$\tfrac{x^{\alpha-1}(1-x)^{\beta-1}}{B(\alpha,\beta)}$</td><td>$\tfrac{\alpha}{\alpha+\beta}$</td><td>$\tfrac{\alpha\beta}{(\alpha+\beta)^2(\alpha+\beta+1)}$</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="cheat-block">
+          <div class="cheat-block__title">Identities</div>
+          <ul>
+            <li>$\Gamma(n)=(n{-}1)!$ for positive integer $n$</li>
+            <li>$\Gamma(1/2)=\sqrt{\pi}$, $\Gamma(x{+}1)=x\,\Gamma(x)$</li>
+            <li>Exp is memoryless: $P(X{>}s{+}t|X{>}s)=P(X{>}t)$</li>
+            <li>If $Z\sim N(0,1)$: $Z^2\sim\chi^2_1=\Gamma(1/2,1/2)$</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- COL 3: Exam playbook -->
+      <div class="cheat-col">
+        <h3>Exam Playbook</h3>
+
+        <div class="cheat-block">
+          <div class="cheat-block__title">Joint density on region (Q1-style)</div>
+          <ol>
+            <li>Sketch support → set integration bounds.</li>
+            <li>Normalize: $\iint f = 1$ → solve for constant.</li>
+            <li>Marginal: integrate out the other variable.</li>
+            <li>Probability: integrate $f$ over the event region.</li>
+            <li>Independence: check if support is a rectangle AND $f$ factors.</li>
+          </ol>
+        </div>
+
+        <div class="cheat-block">
+          <div class="cheat-block__title">Jacobian (Q2-style)</div>
+          <ol>
+            <li>Pick $U,V$ that simplify the geometry.</li>
+            <li>Invert to $X(U,V), Y(U,V)$.</li>
+            <li>Compute $|J|$.</li>
+            <li>Map support.</li>
+            <li>Write $f_{U,V}$ and integrate.</li>
+          </ol>
+        </div>
+
+        <div class="cheat-block">
+          <div class="cheat-block__title">Discrete triangular (Q3-style)</div>
+          <ol>
+            <li>Find $C$ from $\sum\sum p(n,m)=1$.</li>
+            <li>Use $k=n{-}m$ or similar substitution to simplify sums.</li>
+            <li>Recall $\sum_{n=1}^N n=\tfrac{N(N+1)}{2}$, $\sum n^2=\tfrac{N(N+1)(2N+1)}{6}$.</li>
+            <li>Conditional: $P(A|B)=P(A{\cap}B)/P(B)$.</li>
+          </ol>
+        </div>
+
+        <div class="cheat-block">
+          <div class="cheat-block__title">CDF→E[X] (Q4-style)</div>
+          <ol>
+            <li>Differentiate $F$ to get $f$.</li>
+            <li>Recognize $f$ as known (Exp, Γ, Rayleigh, …).</li>
+            <li>$E[X]=\int x f(x)\,dx$. Substitution $u=x^2$ for Rayleigh-ish.</li>
+            <li>Reduce to Gamma: $\int_0^\infty u^{s-1}e^{-u}du=\Gamma(s)$.</li>
+          </ol>
+        </div>
+
+        <div class="cheat-block">
+          <div class="cheat-block__title">Traps checklist</div>
+          <ul>
+            <li>☐ Is support rectangular?</li>
+            <li>☐ Did I take $|J|$ not $J$?</li>
+            <li>☐ Did I update the support after transformation?</li>
+            <li>☐ Did I square the density-variable change for CDF/PDF conversion?</li>
+            <li>☐ Is the denominator in conditional $&gt; 0$?</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+  </main>
+  <footer id="site-footer" class="no-print"></footer>
+
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" integrity="sha384-7zkQWkzuo3B5mTepMUcHkMB5jZaolc2xDwL6VFqjFALcbeS9Ggm/Yr2r3Dy4lfFg" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" integrity="sha384-43gviWU0YVjaDtb/GhzOouOXtZMP/7XUzwPTstBeZFe/+rCMvRwr4yROQP43s0Xk" crossorigin="anonymous"></script>
+  <script type="module" src="./assets/js/main.js"></script>
+</body>
+</html>
