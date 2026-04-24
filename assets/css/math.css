@@ -6,7 +6,6 @@
   border: 1px solid var(--math-border);
   border-radius: var(--r-sm);
   overflow-x: auto;
-  overflow-y: hidden;
 }
 
 .katex {
