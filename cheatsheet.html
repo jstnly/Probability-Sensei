@@ -90,25 +90,6 @@
           </ul>
         </div>
 
-        <div class="cheat-block">
-          <div class="cheat-block__title">Double-integral bounds (6rr)</div>
-          Sketch → pick outer variable → inner limits depend on outer.
-          <table>
-            <thead><tr><th>Region</th><th>Order $dy\,dx$</th></tr></thead>
-            <tbody>
-              <tr><td>$0{<}x{<}y{<}1$</td><td>$\int_0^1\!\int_x^1 f\,dy\,dx$</td></tr>
-              <tr><td>$x{+}y{<}1,\,x,y&gt;0$</td><td>$\int_0^1\!\int_0^{1-x} f\,dy\,dx$</td></tr>
-            </tbody>
-          </table>
-          <em>Fubini: when $f\ge 0$, you can swap $dx\,dy \leftrightarrow dy\,dx$ — just redo the limits.</em>
-        </div>
-
-        <div class="cheat-block">
-          <div class="cheat-block__title">Exp race (6aa)</div>
-          If $X\sim\mathrm{Exp}(a)$ and $Y\sim\mathrm{Exp}(b)$ are independent:
-          <br/>$P(X&lt;Y)=\dfrac{a}{a+b}$
-          <br/><em>$a,b$ = rate parameters. The faster rate (bigger) is more likely to finish first.</em>
-        </div>
       </div>
 
       <!-- COL 2: Sums of independent RVs -->
@@ -137,6 +118,13 @@
             </tbody>
           </table>
           <em>$\lambda$ = rate &middot; $\alpha$ = shape &middot; $\mu$ = mean &middot; $\sigma^2$ = variance</em>
+        </div>
+
+        <div class="cheat-block">
+          <div class="cheat-block__title">Exp race (6aa)</div>
+          If $X\sim\mathrm{Exp}(a)$ and $Y\sim\mathrm{Exp}(b)$ are independent:
+          <br/>$P(X&lt;Y)=\dfrac{a}{a+b}$
+          <br/><em>$a,b$ = rate parameters. Bigger rate → more likely to finish first.</em>
         </div>
 
         <div class="cheat-block">
@@ -252,6 +240,14 @@
       <!-- COL 1: Change of variables -->
       <div class="cheat-col">
         <h3>Change of Variables (6gg)</h3>
+
+        <div class="cheat-block">
+          <div class="cheat-block__title">Setting integral bounds (6rr)</div>
+          Sketch → fix outer variable → inner limits are functions of outer.
+          <br/>$\{0{<}x{<}y{<}1\}$: $\int_0^1\!\int_x^1 f\,dy\,dx$ or $\int_0^1\!\int_0^y f\,dx\,dy$
+          <br/>$\{x{+}y{<}1,\,x,y{>}0\}$: $\int_0^1\!\int_0^{1-x} f\,dy\,dx$
+          <br/><em>Fubini: swap order freely — just redo the limits to match the same region.</em>
+        </div>
 
         <div class="cheat-block">
           <div class="cheat-block__title">What the Jacobian does</div>
