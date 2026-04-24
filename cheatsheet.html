@@ -73,6 +73,29 @@
             <li>$M_{X+Y}(t)=M_X(t)M_Y(t)$</li>
           </ul>
         </div>
+
+        <div class="cheat-block">
+          <div class="cheat-block__title">Sketching the Support</div>
+          Draw boundary lines (equalities), pick a test point, shade region.
+          <br/><strong>{0&lt;x&lt;y&lt;1}:</strong> unit square below line $y=x$ — triangle above diagonal.
+          <br/><strong>{x+y&lt;1, x,y&gt;0}:</strong> triangle with vertices $(0,0),(1,0),(0,1)$.
+          <br/><strong>{$|x|$&lt;y, y&gt;0}:</strong> wedge between lines $y=x$ and $y=-x$.
+          <br/><strong>{$x^2+y^2$&lt;$r^2$}:</strong> disk of radius $r$ (use polar).
+          <br/>Non-rectangular support ⇒ NOT independent (even if $f$ factors).
+        </div>
+
+        <div class="cheat-block">
+          <div class="cheat-block__title">Setting Up Double Integral Bounds</div>
+          Sketch → fix outer variable → read inner limits as functions of outer.
+          <table>
+            <thead><tr><th>Region</th><th>$dy$ inner</th><th>$dx$ inner</th></tr></thead>
+            <tbody>
+              <tr><td>$0&lt;x&lt;y&lt;1$</td><td>$\int_0^1\!\int_x^1 f\,dy\,dx$</td><td>$\int_0^1\!\int_0^y f\,dx\,dy$</td></tr>
+              <tr><td>$x+y&lt;1$, $x,y>0$</td><td>$\int_0^1\!\int_0^{1-x} f\,dy\,dx$</td><td>$\int_0^1\!\int_0^{1-y} f\,dx\,dy$</td></tr>
+            </tbody>
+          </table>
+          <em>Fubini: swap order freely when $f\ge 0$ and region is same.</em>
+        </div>
       </div>
 
       <!-- COL 2: Sums -->
@@ -112,6 +135,29 @@
           $E[aX+bY]=aE[X]+bE[Y]$ (always)
           <br/>$\mathrm{Var}(aX{+}bY)=a^2\mathrm{Var}(X){+}b^2\mathrm{Var}(Y){+}2ab\,\mathrm{Cov}(X,Y)$
           <br/>If indep: Cov = 0.
+        </div>
+
+        <div class="cheat-block">
+          <div class="cheat-block__title">Sum of Normals — Lecture 6D</div>
+          If $X_k\sim N(\mu_k,\sigma_k^2)$ are independent:
+          $$\sum_{k=1}^n X_k\sim N\!\left(\sum_{k=1}^n\mu_k,\;\sum_{k=1}^n\sigma_k^2\right)$$
+          Linear combo: $aX+bY\sim N(a\mu_X+b\mu_Y,\;a^2\sigma_X^2+b^2\sigma_Y^2)$
+          <br/><em>Proof:</em> convolution + complete the square, sub $w=x-\tfrac{at}{\sqrt{a+b}}$.
+        </div>
+
+        <div class="cheat-block">
+          <div class="cheat-block__title">Gamma Sum from iid Exp — Lecture 6D</div>
+          $X_1,\ldots,X_n$ iid $\mathrm{Exp}(\lambda)$, $Y_n=X_1+\cdots+X_n$:
+          $$f_{Y_n}(t)=\frac{\lambda^n\,t^{n-1}}{\Gamma(n)}\,e^{-\lambda t},\quad t\ge 0$$
+          So $Y_n\sim\Gamma(n,\lambda)$. Proved by induction: each step convolves with $\lambda e^{-\lambda x}$, yielding $\lambda^k t^{k-1}/(k-1)!\ e^{-\lambda t}$.
+        </div>
+
+        <div class="cheat-block">
+          <div class="cheat-block__title">Beta Integral &amp; Gamma+Gamma Sum — 6D</div>
+          $$\int_0^1 x^{a-1}(1{-}x)^{b-1}dx=\frac{\Gamma(a)\Gamma(b)}{\Gamma(a+b)}\quad\text{(Beta integral)}$$
+          Scaled: $\displaystyle\int_0^t x^{\alpha-1}(t{-}x)^{\beta-1}dx=\frac{\Gamma(\alpha)\Gamma(\beta)}{\Gamma(\alpha+\beta)}\,t^{\alpha+\beta-1}$
+          <br/>Used in convolution to prove $\Gamma(\gamma,\lambda)+\Gamma(\delta,\lambda)=\Gamma(\gamma+\delta,\lambda)$.
+          <br/>Beta$(a,b)$: $E[X]=\dfrac{a}{a+b}$, $\mathrm{Var}(X)=\dfrac{ab}{(a+b)^2(a+b+1)}$
         </div>
       </div>
 
@@ -182,9 +228,24 @@
           <ol>
             <li>Write $U=g_1, V=g_2$.</li>
             <li>Solve for $X,Y$ in terms of $U,V$.</li>
-            <li>Compute $|J|$.</li>
+            <li>Compute $|J|=\left|\dfrac{\partial x}{\partial u}\dfrac{\partial y}{\partial v}-\dfrac{\partial x}{\partial v}\dfrac{\partial y}{\partial u}\right|$.</li>
             <li><strong>Find new support</strong> (image of original region).</li>
           </ol>
+        </div>
+
+        <div class="cheat-block">
+          <div class="cheat-block__title">Common Substitutions &amp; $|J|$</div>
+          <table>
+            <thead><tr><th>Choose $U,V$</th><th>Invert to $X,Y$</th><th>$|J|$</th></tr></thead>
+            <tbody>
+              <tr><td>$U=X+Y,\;V=X$</td><td>$X=V,\;Y=U-V$</td><td>$1$</td></tr>
+              <tr><td>$U=X+Y,\;V=X-Y$</td><td>$X=\tfrac{U+V}{2},\;Y=\tfrac{U-V}{2}$</td><td>$\tfrac{1}{2}$</td></tr>
+              <tr><td>$U=XY,\;V=X$</td><td>$X=V,\;Y=U/V$</td><td>$1/|V|$</td></tr>
+              <tr><td>$U=X/Y,\;V=Y$</td><td>$X=UV,\;Y=V$</td><td>$|V|$</td></tr>
+              <tr><td>$X=R\cos\Theta,\;Y=R\sin\Theta$</td><td>$R=\sqrt{X^2+Y^2}$</td><td>$R$</td></tr>
+            </tbody>
+          </table>
+          Also transform support: $(x,y)\in S\;\Rightarrow\;(u,v)\in T$.
         </div>
 
         <h3 style="margin-top: 6px;">Order Statistics</h3>
@@ -332,6 +393,29 @@
             <li>☐ Did I square the density-variable change for CDF/PDF conversion?</li>
             <li>☐ Is the denominator in conditional $&gt; 0$?</li>
           </ul>
+        </div>
+
+        <div class="cheat-block">
+          <div class="cheat-block__title">Convolution Checklist</div>
+          $f_{X+Y}(t)=\int f_X(x)\,f_Y(t-x)\,dx$:
+          <ol>
+            <li>Write $f_X(x)\cdot f_Y(t-x)$.</li>
+            <li>Find where BOTH are nonzero (region depends on $t$).</li>
+            <li>Integrate $x$ over the valid range.</li>
+            <li>Simplify — recognize known density type.</li>
+          </ol>
+          <em>Shortcut: use famous sums table if distributions match.</em>
+        </div>
+
+        <div class="cheat-block">
+          <div class="cheat-block__title">Conditional Density Steps</div>
+          <ol>
+            <li>Marginal: $f_Y(y)=\int f(x,y)\,dx$.</li>
+            <li>Divide: $f_{X\mid Y}(x\mid y)=f(x,y)/f_Y(y)$.</li>
+            <li>Verify $\int f_{X\mid Y}(x\mid y)\,dx=1$ for fixed $y$.</li>
+            <li>Recognize — read off $E[X\mid Y=y]$ by distribution.</li>
+            <li>Tower: $E[X]=\int E[X\mid Y=y]\,f_Y(y)\,dy$.</li>
+          </ol>
         </div>
       </div>
     </section>
